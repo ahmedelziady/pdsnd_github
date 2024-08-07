@@ -17,3 +17,7 @@ The Data displayed are related to the (start/End Stations ifnormation , subscrie
 
 ### Credits
 A big thank you to the open source community for all the great support .Special Thanks to [udacity.com](https://www.udacity.com/)
+
+### license
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation file
