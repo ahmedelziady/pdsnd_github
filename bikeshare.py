@@ -1,12 +1,13 @@
 import time
 import pandas as pd
-import numpy as np
+
 
 
 
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
+    THe function aims to return the selected city ,month and day based on user input
 
     Returns:
         (str) city - name of the city to analyze
@@ -17,11 +18,11 @@ def get_filters():
     select_city_str = "Would you like to see the data for Chicago ,New York city or Washington?\n"
 
     select_month_str = """\nWould you like to filter the data based on specific month
-    \rplease select on of the mentioned months or type 'none' if no filter needed
+    \rplease select on of the mentioned months or type 'all' if no filter needed
     \r(January,February,March,April, May ,June)\n"""
 
     select_day_str = """\nWould you like to filter the data based on specific day
-    \rplease select on of the mentioned months or type 'none' if no filter needed
+    \rplease select on of the mentioned months or type 'all' if no filter needed
     \r(Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday)\n"""
 
     wrong_selection_str = "\nwrong selection , please choose on of the mentioned options\n-----------"
@@ -36,13 +37,13 @@ def get_filters():
 
     # get user input for month (all, january, february, ... , june)
     month = input(select_month_str).lower().strip()
-    while month not in ('none', 'january', 'february', 'march', 'april', 'may', 'june'):
+    while month not in ('all', 'january', 'february', 'march', 'april', 'may', 'june'):
         print(wrong_selection_str)
         month = input(select_month_str).lower()
 
     # get user input for day of week (all, monday, tuesday, ... sunday)
     day = input(select_day_str).lower().strip()
-    while day not in ('none', 'saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'):
+    while day not in ('all', 'saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'):
         print(wrong_selection_str)
         day = input(select_day_str).lower()
 
@@ -53,7 +54,7 @@ def get_filters():
 def load_data(city, month, day):
     """
     Loads data for the specified city and filters by month and day if applicable.
-
+    the function use pandas methods to filter the city , month ,day and returns a filterd Data frame
     Args:
         (str) city - name of the city to analyze
         (str) month - name of the month to filter by, or "all" to apply no month filter
@@ -75,14 +76,14 @@ def load_data(city, month, day):
     df['hour'] = df['Start Time'].dt.hour
     df['day_of_week'] = df['Start Time'].dt.day_name()
     # filter by month if applicable
-    if month != 'none':
+    if month != 'all':
         # use the index of the months list to get the corresponding int
         months = ['january', 'february', 'march', 'april', 'may', 'june']
         month = months.index(month) + 1
         # filter by month to create the new dataframe
         df = df[df['month'] == month]
         # filter by day of week if applicable
-    if day != 'none':
+    if day != 'all':
         # filter by day of week to create the new dataframe
         df = df[df['day_of_week'].str.lower() == day]
 
@@ -221,6 +222,7 @@ def user_stats(df):
 def print_trips_details(df):
     """
     Displays row details of all trips in the data frame based on the selected filters
+    the function display 5 trips at once and iterate based on user request
     Args:
         (DateFrame) df - Data frame of the selected filters
 
@@ -229,17 +231,20 @@ def print_trips_details(df):
     """
     df = df.drop('start-stop', axis=1)
     mydata_generator = df.iterrows()
+    i=0
     while (True):
-        for i in range(5):
+        while i <5:
             try:
                 print("-----------------------------------------")
                 print(dict(next(mydata_generator)[1]))
+                i+=1
             except StopIteration:
                 print("All Records have been displayed")
                 return None
         show_customer_details =input('\nDo you want to check another 5 rows of the dataset (yes/no)?\n')
         if show_customer_details.lower() != "yes":
             return None
+        i=0
 
 
 def main():
