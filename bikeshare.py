@@ -221,14 +221,13 @@ def user_stats(df):
 
 def print_trips_details(df):
     """
-     Displays row details of all trips in the data frame based on the selected filters
-     the function display 5 trips at once and iterate based on user request
-     Args:
-         (DateFrame) df - Data frame of the selected filters
-
-      Returns:
-         None
-     """
+    Displays row details of all trips in the data frame based on the selected filters
+    the function display 5 trips at once and iterate based on user request
+    Args:
+        (DateFrame) df - Data frame of the selected filters
+    Returns:
+        None
+    """
     df = df.drop('start-stop', axis=1)
     mydata_generator = df.iterrows()
     while (True):
