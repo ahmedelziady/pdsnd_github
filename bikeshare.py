@@ -7,6 +7,7 @@ import numpy as np
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
+    THe function aims to return the selected city ,month and day based on user input
 
     Returns:
         (str) city - name of the city to analyze
@@ -53,7 +54,7 @@ def get_filters():
 def load_data(city, month, day):
     """
     Loads data for the specified city and filters by month and day if applicable.
-
+    the function use pandas methods to filter the city , month ,day and returns a filterd Data frame
     Args:
         (str) city - name of the city to analyze
         (str) month - name of the month to filter by, or "all" to apply no month filter
@@ -220,13 +221,14 @@ def user_stats(df):
 
 def print_trips_details(df):
     """
-    Displays row details of all trips in the data frame based on the selected filters
-    Args:
-        (DateFrame) df - Data frame of the selected filters
+     Displays row details of all trips in the data frame based on the selected filters
+     the function display 5 trips at once and iterate based on user request
+     Args:
+         (DateFrame) df - Data frame of the selected filters
 
-     Returns:
-        None
-    """
+      Returns:
+         None
+     """
     df = df.drop('start-stop', axis=1)
     mydata_generator = df.iterrows()
     while (True):
