@@ -231,20 +231,18 @@ def print_trips_details(df):
     """
     df = df.drop('start-stop', axis=1)
     mydata_generator = df.iterrows()
-    i=0
+
     while (True):
-        while i <5:
+        for i in range(5):
             try:
                 print("-----------------------------------------")
                 print(dict(next(mydata_generator)[1]))
-                i+=1
             except StopIteration:
                 print("All Records have been displayed")
                 return None
         show_customer_details =input('\nDo you want to check another 5 rows of the dataset (yes/no)?\n')
         if show_customer_details.lower() != "yes":
             return None
-        i=0
 
 
 def main():
